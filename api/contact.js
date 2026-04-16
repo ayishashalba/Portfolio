@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 let isConnected = false;
 
 async function connectDB() {
-  if (isConnected) return;
+  if (isConnected) {
+    return;
+  }
 
   await mongoose.connect(process.env.MONGO_URI);
   isConnected = true;
@@ -32,13 +34,18 @@ export default async function handler(req, res) {
   try {
     await connectDB();
 
-    const data = await Contact.create(req.body);
+    const newContact = await Contact.create({
+      name: req.body.name,
+      email: req.body.email,
+      message: req.body.message
+    });
 
     return res.status(200).json({
       message: "Saved successfully",
-      data
+      data: newContact
     });
-  } catch (err) {
+  } catch (error) {
+    console.error(error);
     return res.status(500).json({
       message: "Error saving data"
     });

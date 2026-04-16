@@ -26,8 +26,11 @@ function ContactPage() {
       })
     })
       .then(function (res) {
-        return res.json();
-      })
+  if (!res.ok) {
+    throw new Error("Request failed");
+  }
+  return res.json();
+})
       .then(function (data) {
         setStatus("Message sent successfully!");
         setName("");
