@@ -38,9 +38,9 @@ function Home() {
 
           <div className="hero-links">
             <a
-              href="https://linkedin.com/in/ayisha-shalba-848a2632a"
+              href="https://www.linkedin.com/in/ayisha-shalba-848a2632a/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hero-link"
             >
               LINKEDIN
