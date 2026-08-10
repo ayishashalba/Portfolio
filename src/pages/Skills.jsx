@@ -105,11 +105,11 @@ function Skills() {
             </div>
             <div className="skill-item">
               <div className="skill-head">
-                <span>MongoDB</span>
-                <span>85%</span>
+                <span>SQL</span>
+                <span>55%</span>
               </div>
               <div className="progress-bar">
-                <div className="progress" style={{ width: "85%" }}></div>
+                <div className="progress" style={{ width: "55%" }}></div>
               </div>
             </div>
           </div>
