@@ -31,9 +31,14 @@ function Home() {
               VIEW MY WORK
             </Link>
 
-            <Link to="/contact" className="secondary-btn">
-              LET&apos;S CONNECT
-            </Link>
+            <a
+  href="https://wa.me/919947519451?text=Hi%20Ayisha%2C%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20connect."
+  target="_blank"
+  rel="noopener noreferrer"
+  className="secondary-btn"
+>
+  LET&apos;S CONNECT
+</a>
           </div>
 
           <div className="hero-links">
