@@ -38,7 +38,7 @@ function Home() {
 
           <div className="hero-links">
             <a
-              href="www.linkedin.com/in/ayisha-shalba-848a2632a"
+              href="https://linkedin.com/in/ayisha-shalba-848a2632a"
               target="_blank"
               rel="noreferrer"
               className="hero-link"
