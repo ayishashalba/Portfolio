@@ -52,7 +52,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: "onboarding@resend.dev",
-        to: ["ayishashalbap@gmail.com"],
+        to: ["ayishashalba555@gmail.com"],
         subject: `New Portfolio Message from ${name}`,
         html: `
           <h2>New Portfolio Contact Message</h2>
