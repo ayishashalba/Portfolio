@@ -47,7 +47,7 @@ function Home() {
             </a>
 
             <a
-              href="https://github.com"
+              href="https://github.com/ayishashalba"
               target="_blank"
               rel="noreferrer"
               className="hero-link"
