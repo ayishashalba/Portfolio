@@ -86,8 +86,8 @@ function ContactPage() {
         </form>
 
         <div className="contact-info">
-          <p>📍 Kerala, India</p>
-          <p>📧 yourmail@example.com</p>
+          <p>📍 kozhikode, Kerala, India</p>
+          <p>📧 ayishashalbap@gmail.com</p>
         </div>
       </div>
     </section>
