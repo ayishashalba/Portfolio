@@ -27,45 +27,98 @@ const Contact =
   mongoose.models.Contact || mongoose.model("Contact", contactSchema);
 
 export default async function handler(req, res) {
+  // Only allow POST requests
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
+    return res.status(405).json({
+      message: "Method not allowed",
+    });
   }
 
   try {
-    await connectDB();
-
     const { name, email, message } = req.body;
+
+    // Check empty fields
+    if (!name || !email || !message) {
+      return res.status(400).json({
+        message: "Please fill all fields",
+      });
+    }
+
+    // Clean input
+    const cleanName = name.trim();
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanMessage = message.trim();
+
+    // Check again after trimming
+    if (!cleanName || !cleanEmail || !cleanMessage) {
+      return res.status(400).json({
+        message: "Please fill all fields",
+      });
+    }
+
+    // Validate email format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(cleanEmail)) {
+      return res.status(400).json({
+        message: "Please enter a valid email address",
+      });
+    }
+
+    // Connect to MongoDB
+    await connectDB();
 
     // Save message to MongoDB
     await Contact.create({
-      name,
-      email,
-      message,
+      name: cleanName,
+      email: cleanEmail,
+      message: cleanMessage,
     });
 
     // Send email using Resend
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
+
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       },
+
       body: JSON.stringify({
         from: "onboarding@resend.dev",
+
         to: ["ayishashalbap@gmail.com"],
-        subject: `New Portfolio Message from ${name}`,
+
+        subject: `New Portfolio Message from ${cleanName}`,
+
         html: `
           <h2>New Portfolio Contact Message</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Message:</strong></p>
-          <p>${message}</p>
+
+          <p>
+            <strong>Name:</strong> ${cleanName}
+          </p>
+
+          <p>
+            <strong>Email:</strong>
+            <a href="mailto:${cleanEmail}">
+              ${cleanEmail}
+            </a>
+          </p>
+
+          <p>
+            <strong>Message:</strong>
+          </p>
+
+          <p>
+            ${cleanMessage}
+          </p>
         `,
       }),
     });
 
     const resendData = await resendResponse.json();
 
+    // Check Resend response
     if (!resendResponse.ok) {
       console.error("Resend error:", resendData);
 
@@ -78,10 +131,10 @@ export default async function handler(req, res) {
       message: "Message sent successfully!",
     });
   } catch (error) {
-    console.error(error);
+    console.error("Contact form error:", error);
 
     return res.status(500).json({
-      message: "Error saving/sending message",
+      message: "Something went wrong",
     });
   }
 }
