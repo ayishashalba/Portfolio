@@ -19,8 +19,8 @@ const contactSchema =
     message: String,
     createdAt: {
       type: Date,
-      default: Date.now
-    }
+      default: Date.now,
+    },
   });
 
 const Contact =
@@ -34,20 +34,54 @@ export default async function handler(req, res) {
   try {
     await connectDB();
 
-    const newContact = await Contact.create({
-      name: req.body.name,
-      email: req.body.email,
-      message: req.body.message
+    const { name, email, message } = req.body;
+
+    // Save message to MongoDB
+    await Contact.create({
+      name,
+      email,
+      message,
     });
 
+    // Send email using Resend
+    const resendResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: "onboarding@resend.dev",
+        to: ["ayishashalbap@gmail.com"],
+        subject: `New Portfolio Message from ${name}`,
+        html: `
+          <h2>New Portfolio Contact Message</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        `,
+      }),
+    });
+
+    const resendData = await resendResponse.json();
+
+    if (!resendResponse.ok) {
+      console.error("Resend error:", resendData);
+
+      return res.status(500).json({
+        message: "Message saved, but email could not be sent",
+      });
+    }
+
     return res.status(200).json({
-      message: "Saved successfully",
-      data: newContact
+      message: "Message sent successfully!",
     });
   } catch (error) {
     console.error(error);
+
     return res.status(500).json({
-      message: "Error saving data"
+      message: "Error saving/sending message",
     });
   }
 }
