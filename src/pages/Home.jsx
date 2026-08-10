@@ -55,9 +55,14 @@ function Home() {
               GITHUB
             </a>
 
-            <a href="mailto:ayishashalbap@gmail.com" className="hero-link">
-              EMAIL
-            </a>
+            <a
+  href="https://mail.google.com/mail/?view=cm&fs=1&to=ayishashalbap@gmail.com&su=Portfolio%20Contact&body=Hello%20Ayisha,%0A%0AI%20visited%20your%20portfolio%20and%20would%20like%20to%20connect."
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hero-link"
+>
+  EMAIL
+</a>
           </div>
         </div>
 
