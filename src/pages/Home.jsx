@@ -38,7 +38,7 @@ function Home() {
 
           <div className="hero-links">
             <a
-              href="https://linkedin.com"
+              href="www.linkedin.com/in/ayisha-shalba-848a2632a"
               target="_blank"
               rel="noreferrer"
               className="hero-link"
@@ -55,7 +55,7 @@ function Home() {
               GITHUB
             </a>
 
-            <a href="mailto:ayishashalba555@gmail.com" className="hero-link">
+            <a href="mailto:ayishashalbap@gmail.com" className="hero-link">
               EMAIL
             </a>
           </div>
