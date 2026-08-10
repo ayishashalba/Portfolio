@@ -103,6 +103,15 @@ function Skills() {
                 <div className="progress" style={{ width: "85%" }}></div>
               </div>
             </div>
+            <div className="skill-item">
+              <div className="skill-head">
+                <span>MongoDB</span>
+                <span>85%</span>
+              </div>
+              <div className="progress-bar">
+                <div className="progress" style={{ width: "85%" }}></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
